@@ -6,25 +6,52 @@ Tired of CMake crashing on paths with spaces? Sick of slow build times? This NDK
 
 ---
 
+## ⚠️ Before You Start — One-Time Setup (IMPORTANT)
+
+If you get a `wget: command not found` error, it means `wget` is not installed on your system. Run this **once** before doing anything else:
+
+```bash
+pkg install wget -y
+```
+
+> 💡 **Alternative (No wget needed):** You can also use `curl` to download — it comes pre-installed on most COTG/Termux setups. The `curl` download command is given in Step 1 below.
+
+---
+
 ## 📦 1. Installation (Follow Carefully)
 
-To avoid any permission or path issues, follow these exact steps in your terminal:
+**Step 1 — Download (Pick ONE method):**
 
-**Step 1 — Download:**
-Go to the **Releases** section and download `cotgx-ndk-ultimate.tar.gz`.
+Using `wget` (after installing it via `pkg install wget -y`):
+```bash
+wget https://your-release-link-here/cotgx-ndk-ultimate.tar.gz
+```
 
-**Step 2 — Move & Extract:**
-Move the file to your home directory and extract it:
+Using `curl` (no extra install needed):
+```bash
+curl -L -o cotgx-ndk-ultimate.tar.gz https://your-release-link-here/cotgx-ndk-ultimate.tar.gz
+```
+
+> 📌 Replace the URL above with the actual download link from the **Releases** section of this repo.
+
+**Step 2 — Extract:**
 
 ```bash
 tar -xvzf cotgx-ndk-ultimate.tar.gz -C ~/
 ```
 
 **Step 3 — Set Permissions (CRITICAL):**
-You must give execution permission to the compiler script, otherwise you will get a `Permission Denied` error:
 
 ```bash
 chmod +x ~/cotgx-ndk/cotgx-build.sh
+```
+
+> Without this step you will get a `Permission Denied` error every time.
+
+**Step 4 — Clean Up (Optional):**
+
+```bash
+rm cotgx-ndk-ultimate.tar.gz
 ```
 
 ---
@@ -52,14 +79,12 @@ echo "✅ ALL DONE DIRECTLY! NO CMAKE BS!"
 
 ## 🛠️ 3. Troubleshooting
 
-**Error: `Permission Denied`?**
-```bash
-chmod +x ~/cotgx-ndk/cotgx-build.sh
-```
-This usually happens if you extracted the file using a normal File Manager instead of the terminal.
-
-**Error: `No such file or directory`?**
-Ensure you extracted the tool exactly to `~/cotgx-ndk/`. If the path is different, the master command will not work.
+| Error | Fix |
+|---|---|
+| `wget: command not found` | Run `pkg install wget -y` first, then retry |
+| `Permission Denied` | Run `chmod +x ~/cotgx-ndk/cotgx-build.sh` again |
+| `No such file or directory` | Make sure you extracted to `~/cotgx-ndk/` exactly |
+| Download failing | Try the `curl` method instead of `wget` |
 
 **Architecture Support:**
 This NDK is built specifically for **AArch64 (arm64-v8a)** devices.
