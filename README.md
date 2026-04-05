@@ -4,21 +4,30 @@ Welcome to **COTGX NDK Ultimate**! This is a custom, highly optimized NDK enviro
 
 Tired of CMake crashing on paths with spaces? Sick of slow build times? This NDK bypasses CMake completely and compiles raw C++ files directly in seconds!
 
-## 🔥 Features
-* **Ultra-Fast Compilation:** Compile heavy C++ libraries in under 10 seconds.
-* **No CMake Required:** Direct Clang++ compilation.
-* **Mobile Optimized:** Built to run smoothly inside Android IDEs (like Code on the Go / AndroidIDE).
-* **Pre-configured Sysroot:** Auto-links Android and Log libraries.
+---
 
-## 📦 Installation
-1. Go to the **[Releases](../../releases)** section of this repository.
-2. Download the `cotgx-ndk-ultimate.tar.gz` file.
-3. Extract it to your home directory (`~/cotgx-ndk/`).
+## 📦 1. Installation (Follow Carefully)
 
-## ⚡ How to Use (The 9-Second Master Command)
-Navigate to your C++ folder in your terminal and run this master command to compile, strip, and move your `.so` files all at once:
+To avoid any permission or path issues, follow these exact steps in your terminal:
 
-```bash
+1. **Download:** Go to the **[Releases](../../releases)** section and download `cotgx-ndk-ultimate.tar.gz`.
+2. **Move & Extract:** Move the file to your home directory and extract it using this command:
+   ```bash
+   tar -xvzf cotgx-ndk-ultimate.tar.gz -C ~/
+
+
+
+Set Permissions (CRITICAL): You must give execution permission to the compiler script, otherwise you will get a "Permission Denied" error:
+
+chmod +x ~/cotgx-ndk/cotgx-build.sh
+
+
+
+
+ 2. How to Use (The 9-Second Master Command)
+Navigate to your project's C++ source folder (usually app/src/main/cpp) and run this single master command. It will Compile, Strip, and Move all your .so files to the correct folder automatically
+
+
 cd "app/src/main/cpp" && \
 ~/cotgx-ndk/cotgx-build.sh clang++ -shared -fPIC fileops.cpp -landroid -llog -o libfileops.so && \
 ~/cotgx-ndk/cotgx-build.sh clang++ -shared -fPIC zipops.cpp -landroid -llog -lz -o libzipops.so && \
@@ -29,3 +38,20 @@ cd "app/src/main/cpp" && \
 mkdir -p "../../jniLibs/arm64-v8a" && \
 mv lib*.so "../../jniLibs/arm64-v8a/" && \
 echo "✅ ALL DONE DIRECTLY! NO CMAKE BS!"
+
+
+
+3. Troubleshooting (If things go wrong)
+Error: Permission Denied?
+Run chmod +x ~/cotgx-ndk/cotgx-build.sh again. This usually happens if you extracted the file using a normal File Manager instead of the terminal.
+Error: No such file or directory?
+Ensure you extracted the tool exactly to ~/cotgx-ndk/. If the path is different, the master command will not work.
+Architecture Support:
+This NDK is built specifically for AArch64 (arm64-v8a) devices.
+🔥 Features at a Glance
+Ultra-Fast: Compiles heavy C++ libraries in less than 10 seconds.
+Standalone: No dependency on CMake or external desktop build tools.
+Pre-configured: Automatically links libandroid and liblog by default.
+👨‍💻 Developed By
+Aman (Moderator @ Code on the Go)
+Empowering mobile developers with real NDK power!
